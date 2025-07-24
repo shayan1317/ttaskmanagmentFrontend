@@ -50,7 +50,7 @@ const Signup = () => {
       const res = await API.post("/auth/signup", formData);
 
       if (res && res.data) {
-        console.log("Signup successful");
+        console.log("Signup successful", res.data.user);
         const { token, ...rest } = res.data.user;
         toast.success("User saved successfully");
         saveUserToLocalStorage(rest);

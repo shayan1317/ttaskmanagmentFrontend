@@ -16,16 +16,26 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   useEffect(() => {
     try {
-      let user = localStorage.getItem("user") || "";
-      let parsedUser = user ? JSON.parse(user) : {};
-      if (parsedUser) {
+      const storedUser = localStorage.getItem("user");
+      const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+
+      const isValidUser = parsedUser && Object.keys(parsedUser).length > 0;
+
+      if (isValidUser) {
         setUser(parsedUser);
-        navigate("/tasks");
+        // Don't navigate unnecessarily if already on /tasks
+        if (
+          window.location.pathname === "/" ||
+          window.location.pathname === "/login"
+        ) {
+          navigate("/tasks");
+        }
       } else {
         navigate("/login");
       }
     } catch (err) {
-      console.log(err);
+      console.error("Error parsing user:", err);
+      navigate("/login");
     }
   }, []);
 

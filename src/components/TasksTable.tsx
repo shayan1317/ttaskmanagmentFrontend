@@ -43,6 +43,11 @@ const TasksTable = () => {
   const handleAddTask = () => {
     navigate("/addTask");
   };
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <div className="flex gap-4 p-6 overflow-x-auto h-[90vh] ">
       <div>
@@ -51,6 +56,14 @@ const TasksTable = () => {
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md transition duration-200"
         >
           + Add Task
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={handleLogout}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md transition duration-200"
+        >
+          Logout
         </button>
       </div>
 

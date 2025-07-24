@@ -1,11 +1,14 @@
-import type { LocalStorageValue } from "./types";
-
-export const saveUserToLocalStorage = ({ user, token }: LocalStorageValue) => {
+export const saveUserToLocalStorage = (value: string | User) => {
   try {
-    if (token) localStorage.setItem("token", token);
-    if (user) localStorage.setItem("user", JSON.stringify(user));
+    if (typeof value === "string") {
+      // Assume it's the token
+      localStorage.setItem("token", value);
+    } else if (typeof value === "object") {
+      // Assume it's the user object
+      localStorage.setItem("user", JSON.stringify(value));
+    }
   } catch (error) {
-    console.error("Failed to save user:", error);
+    console.error("Failed to save to localStorage:", error);
   }
 };
 export const getValueFromLocalStorage = <T = unknown>(
