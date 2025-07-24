@@ -55,7 +55,7 @@ export default function EditTaskForm() {
     enabled: !!id, // only run if id exists
   });
 
-  const { createTask } = useTasks();
+  const { updateTask } = useTasks();
   const { getAllUsers } = useUsers();
   const { tasks } = useTaskStore();
   const {
@@ -97,9 +97,9 @@ export default function EditTaskForm() {
     }
 
     try {
-      const res = await createTask(formData);
+      const res = await updateTask(task.id, formData);
       reset();
-      if (res) toast.success("Task added successfully");
+      if (res) toast.success("Task updatedd successfully");
     } catch (error) {
       toast.error("Task could not be added");
     }
@@ -117,8 +117,6 @@ export default function EditTaskForm() {
         ) || []
       );
     }, [users]);
-
-    console.log("options", options);
   }
 
   useEffect(() => {
